@@ -20,3 +20,5 @@ grep -ril 'http://' www | grep -v jpg |grep -v gif | grep -v png \
     | xargs sed -i '' 's/http:\/\//\//g'
 
 cp $(find www -name favicon.ico | head -n1) www
+
+tar cz -C www -f $2.offline.tgz .
