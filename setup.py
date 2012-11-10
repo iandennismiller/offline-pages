@@ -3,9 +3,9 @@ import os, shutil
 
 version = '0.1'
 
-setup(name='poodledo',
+setup(name='offline-pages',
       version=version,
-      description="poodledo",
+      description="offline pages",
       scripts=[
             "bin/offline-browse", 
             "bin/offline-create", 
