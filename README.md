@@ -44,14 +44,12 @@ offline-create ./urls.txt wikipage
 offline-browse wikipage.archive.tgz
 ```
 
-Use Cases
----------
-
-### Archiving a forum thread
+Use Case: archiving a forum thread
+----------------------------------
 
 So there is a forum thread consisting of hundreds of posts, and it spans dozens of pages.  Offline-pages can create a fully self-contained mirror of all these pages, such that the offline version can be navigated much like the online version. In this case, just create a URLs file containing each of the pages you want to include in the archive. 
 
-#### example forum: vBulletin
+### example forum: vBulletin
 
 For the purpose of this example, we will look at a vBulletin forum.  The base URL for a vBulletin forum thread might look something like this:
 
@@ -65,7 +63,7 @@ Subsequent pages of the forum thread simply append "pageX" to the URL, like this
 http://www.example.com/vb/threads/1234-this-thread/page2
 ```
 
-#### 1. identify target URLs
+### 1. identify target URLs
 
 Begin with the stable portion of the URL and write all URLs to a file at once:
 
@@ -74,7 +72,7 @@ export BASE_URL=http://www.example.com/vb/threads/1234-this-thread/page
 for i in $(seq 1 40); do echo ${BASE_URL}${i}; done > urls.txt
 ```
 
-#### 2. fix the first URL
+### 2. fix the first URL
 
 If you look at the file, everything looks great except the first URL. Since I used a for loop to generate most of the URLs, I will need to manually modify the first entry. You will notice that the first line now says:
 
@@ -96,7 +94,7 @@ http://www.example.com/vb/threads/1234-this-thread?s=1
 
 You will notice I added *?s=1* to the end of the URL.  This will be ignored by vBulletin, but it will ensure our archival process creates a file happily in the archive.
 
-#### 3. archive the thread
+### 3. archive the thread
 
 Now you are ready to archive the thread.  
 
