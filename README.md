@@ -6,9 +6,9 @@ Save a bunch of web pages as a self-contained, compressed archive file for offli
 Installation
 ------------
 
-git clone git://github.com/iandennismiller/offline-pages.git
-cd offline-pages
-sudo make install
+    git clone git://github.com/iandennismiller/offline-pages.git
+    cd offline-pages
+    sudo make install
 
 What is it?
 -----------
