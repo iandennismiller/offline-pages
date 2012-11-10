@@ -4,6 +4,7 @@ UA="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.11 (KHTML, li
 Chrome/23.0.1271.6 Safari/537.11"
 FIRST=$(head -n1 $1 | sed 's/http:\/\//\//')
 
+rm -rf /tmp/offline-pages-www
 mkdir -p /tmp/offline-pages-www
 cat > /tmp/offline-pages-www/index.html <<EOF 
 <html>
