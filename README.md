@@ -86,13 +86,13 @@ We don't want "page1" there (because that's not how vBulletin works), so edit `u
 http://www.example.com/vb/threads/1234-this-thread
 ```
 
-However, that's not going to work right. Our URLs file specifies there to be a directory called *1234-this-thread* in which it will place a file called *page2*.  To fix this, modify the first line again to include a nonsense parameter:
+However, that's not going to work right. Our URLs file specifies there to be a directory called **1234-this-thread** in which it will place a file called **page2**.  If there is already a file called **1234-this-thread**, then we will be unable to create a directory with the same name, and our archival process will be unable to save **page2** if it cannot create a properly named directory. To fix this, modify the first line again to include a nonsense parameter:
 
 ```
 http://www.example.com/vb/threads/1234-this-thread?s=1
 ```
 
-You will notice I added *?s=1* to the end of the URL.  This will be ignored by vBulletin, but it will ensure our archival process creates a file happily in the archive.
+You will notice I added **?s=1** to the end of the URL.  This will be ignored by vBulletin, but it will ensure our archival process creates a file happily in the archive.
 
 ### 3. archive the thread
 
