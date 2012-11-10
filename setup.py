@@ -17,7 +17,7 @@ setup(name='offline-pages',
       author_email='',
       url='',
       #install_requires = [],
-      packages = ["ArchiveHTTPServer"],
+      packages = ["OfflinePages"],
       license='MIT',
       zip_safe=False,
       )

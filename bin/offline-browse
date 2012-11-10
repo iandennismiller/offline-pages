@@ -6,5 +6,5 @@ tar xvz -C /tmp/archive -f $1
 PORT=$[ ( $RANDOM % 100 ) + 8000]
 bash -c "sleep 3; open http://localhost:${PORT}" &
 pushd /tmp/archive
-python ArchiveHTTPServer.py $PORT
+python OfflinePages.ArchiveHTTPServer $PORT
 popd
