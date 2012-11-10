@@ -68,13 +68,23 @@ for i in $(seq 1 40); do echo ${BASE_URL}${i}; done > urls.txt
 
 If you look at the file, everything looks great except the first URL.  You will notice that the first line now says:
 
+```
 http://www.example.com/vb/threads/1234-this-thread/page1
+```
 
-We don't want "page1" there (because that's not how vBulletin works), so edit `urls.txt` and change the first line to read:
+We don't want "page1" there (because that's not how vBulletin works), so edit `urls.txt` and change the first line back to the real URL:
+
+```
+http://www.example.com/vb/threads/1234-this-thread
+```
+
+However, that's not going to work right. Our URLs file specifies there to be a directory called *1234-this-thread* in which it will place a file called *page2*.  To fix this, modify the first line again to include a nonsense parameter:
 
 ```
 http://www.example.com/vb/threads/1234-this-thread?s=1
 ```
+
+You will notice I added *?s=1* to the end of the URL.  This will be ignored by vBulletin, but it will ensure our archival process creates a file happily in the archive.
 
 ### 3. archive the thread
 
