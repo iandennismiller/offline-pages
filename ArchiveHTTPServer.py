@@ -1,18 +1,18 @@
-"""Simple HTTP Server.
+"""Archive HTTP Server.
 
 This module builds on BaseHTTPServer by implementing the standard GET
 and HEAD requests in a fairly straightforward manner.
 
 """
 
+__version__ = "0.1"
 
-__version__ = "0.6"
-
-__all__ = ["SimpleHTTPRequestHandler"]
+__all__ = ["ArchiveHTTPRequestHandler"]
 
 import os
 import posixpath
 import BaseHTTPServer
+import SimpleHTTPServer
 import urllib
 import cgi
 import sys
@@ -23,8 +23,9 @@ try:
 except ImportError:
     from StringIO import StringIO
 
+class ArchiveHTTPRequestHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
 
-class SimpleHTTPRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
+    server_version = "ArchiveHTTP/" + __version__
 
     """Simple HTTP request handler with GET and HEAD commands.
 
@@ -36,21 +37,6 @@ class SimpleHTTPRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
     request omits the actual contents of the file.
 
     """
-
-    server_version = "SimpleHTTP/" + __version__
-
-    def do_GET(self):
-        """Serve a GET request."""
-        f = self.send_head()
-        if f:
-            self.copyfile(f, self.wfile)
-            f.close()
-
-    def do_HEAD(self):
-        """Serve a HEAD request."""
-        f = self.send_head()
-        if f:
-            f.close()
 
     def send_head(self):
         """Common code for GET and HEAD commands.
@@ -99,48 +85,6 @@ class SimpleHTTPRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
         self.end_headers()
         return f
 
-    def list_directory(self, path):
-        """Helper to produce a directory listing (absent index.html).
-
-        Return value is either a file object, or None (indicating an
-        error).  In either case, the headers are sent, making the
-        interface the same as for send_head().
-
-        """
-        try:
-            list = os.listdir(path)
-        except os.error:
-            self.send_error(404, "No permission to list directory")
-            return None
-        list.sort(key=lambda a: a.lower())
-        f = StringIO()
-        displaypath = cgi.escape(urllib.unquote(self.path))
-        f.write('<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">')
-        f.write("<html>\n<title>Directory listing for %s</title>\n" % displaypath)
-        f.write("<body>\n<h2>Directory listing for %s</h2>\n" % displaypath)
-        f.write("<hr>\n<ul>\n")
-        for name in list:
-            fullname = os.path.join(path, name)
-            displayname = linkname = name
-            # Append / for directories or @ for symbolic links
-            if os.path.isdir(fullname):
-                displayname = name + "/"
-                linkname = name + "/"
-            if os.path.islink(fullname):
-                displayname = name + "@"
-                # Note: a link to a directory displays with @ and links with /
-            f.write('<li><a href="%s">%s</a>\n'
-                    % (urllib.quote(linkname), cgi.escape(displayname)))
-        f.write("</ul>\n<hr>\n</body>\n</html>\n")
-        length = f.tell()
-        f.seek(0)
-        self.send_response(200)
-        encoding = sys.getfilesystemencoding()
-        self.send_header("Content-type", "text/html; charset=%s" % encoding)
-        self.send_header("Content-Length", str(length))
-        self.end_headers()
-        return f
-
     def translate_path(self, path, strict):
         """Translate a /-separated PATH to the local filename syntax.
 
@@ -163,22 +107,6 @@ class SimpleHTTPRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
             if word in (os.curdir, os.pardir): continue
             path = os.path.join(path, word)
         return path
-
-    def copyfile(self, source, outputfile):
-        """Copy all data between two file objects.
-
-        The SOURCE argument is a file object open for reading
-        (or anything with a read() method) and the DESTINATION
-        argument is a file object open for writing (or
-        anything with a write() method).
-
-        The only reason for overriding this would be to change
-        the block size or perhaps to replace newlines by CRLF
-        -- note however that this the default server uses this
-        to copy binary data as well.
-
-        """
-        shutil.copyfileobj(source, outputfile)
 
     def guess_type(self, path):
         """Guess the type of a file.
@@ -217,10 +145,9 @@ class SimpleHTTPRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
         })
 
 
-def test(HandlerClass = SimpleHTTPRequestHandler,
+def test(HandlerClass = ArchiveHTTPRequestHandler,
          ServerClass = BaseHTTPServer.HTTPServer):
     BaseHTTPServer.test(HandlerClass, ServerClass)
-
 
 if __name__ == '__main__':
     test()
