@@ -1,1 +1,4 @@
-www
+build
+dist
+*.egg-info
+
