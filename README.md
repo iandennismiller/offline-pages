@@ -66,7 +66,7 @@ for i in $(seq 1 40); do echo ${BASE_URL}${i}; done > urls.txt
 
 ### 2. fix the first URL
 
-If you look at the file, everything looks great except the first URL.  You will notice that the first line now says:
+If you look at the file, everything looks great except the first URL. Since I used a for loop to generate most of the URLs, I will need to manually modify the first entry. You will notice that the first line now says:
 
 ```
 http://www.example.com/vb/threads/1234-this-thread/page1
