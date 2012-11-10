@@ -49,15 +49,21 @@ Use Cases
 
 ### Archiving a forum thread
 
-So there is a forum thread consisting of hundreds of posts, and it spans dozens of pages.  Offline-pages can create a fully self-contained mirror of all these pages, such that the offline version can be navigated much like the online version. In this case, just create a URLs file containing each of the pages you want to include in the archive.
+So there is a forum thread consisting of hundreds of posts, and it spans dozens of pages.  Offline-pages can create a fully self-contained mirror of all these pages, such that the offline version can be navigated much like the online version. In this case, just create a URLs file containing each of the pages you want to include in the archive. 
 
-If you were archiving a vBulletin forum, you might have a base URL like this:
+### example forum: vBulletin
 
+For the purpose of this example, we will look at a vBulletin forum.  The base URL for a vBulletin forum thread might look something like this:
+
+```
 http://www.example.com/vb/threads/1234-this-thread
+```
 
 Subsequent pages of the forum thread simply append "pageX" to the URL, like this:
 
+```
 http://www.example.com/vb/threads/1234-this-thread/page2
+```
 
 ### 1. identify target URLs
 
