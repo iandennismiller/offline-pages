@@ -18,3 +18,5 @@ wget -v --span-hosts --timestamping --convert-links --page-requisites \
 LC_CTYPE='C'
 grep -ril 'http://' www | grep -v jpg |grep -v gif | grep -v png \
     | xargs sed -i '' 's/http:\/\//\//g'
+
+cp $(find www -name favicon.ico | head -n1) www
