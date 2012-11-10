@@ -1,5 +1,7 @@
 #!/bin/bash
 
-bash -c "sleep 3; open http://localhost:8000" &
+PORT=$[ ( $RANDOM % 100 ) + 8000]
+bash -c "sleep 3; open http://localhost:${PORT}" &
 pushd www
-python ../SimpleHTTPServer.py
+python ../ArchiveHTTPServer.py $PORT
+popd
