@@ -10,10 +10,14 @@ Installation
     cd offline-pages
     sudo make install
 
+Behind the scenes, `make install` will use setuptools to install a python library and scripts. Tested on OS X Mountain Lion.  Other *NIXes are likely to work as well. 
+
 What is it?
 -----------
 
 Offline-pages lets you save an entire website to a file, along with all the required media you'll need to view the pages offline.  It's like your browser's "Save Page As" feature, except it isn't limited to one page so it can handle entire websites.  The archive can be browsed offline, and all the inter-links will point within the archive (i.e. it is self-contained).
+
+There are not a ton of alternatives that provide exactly the same functionality, and it's possible none of them are as simple.
 
 Usage
 -----
